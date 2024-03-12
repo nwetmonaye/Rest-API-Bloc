@@ -7,7 +7,9 @@ part 'getcontact_state.dart';
 
 class GetcontactCubit extends Cubit<GetcontactState> {
   final ContactRepository _contactRepository;
-  GetcontactCubit(this._contactRepository) : super(GetcontactInitial());
+  GetcontactCubit(this._contactRepository) : super(GetcontactInitial()) {
+    getContact();
+  }
 
   void getContact() {
     emit(GetcontactInitial());
@@ -15,5 +17,13 @@ class GetcontactCubit extends Cubit<GetcontactState> {
         .getContact()
         .then((value) => emit(GetContactSuccess(value)))
         .catchError((e) => emit(GetContactFail('Error')));
+  }
+
+  void delete(String id) {
+    emit(GetcontactInitial());
+    _contactRepository
+        .deleteContact(id)
+        .then((value) => getContact())
+        .catchError((e) => emit(GetContactFail('Cannot Delete')));
   }
 }

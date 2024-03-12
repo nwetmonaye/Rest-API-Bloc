@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_api_bloc/bloc/get/cubit/getcontact_cubit.dart';
 import 'package:test_api_bloc/data/model/contact.dart';
 import 'package:test_api_bloc/screen/add_screen.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:test_api_bloc/screen/edit_screen.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<GetcontactCubit>(context).getContact();
     return Scaffold(
       appBar: AppBar(
         title: Text('Contact List'),
@@ -32,7 +33,7 @@ class Home extends StatelessWidget {
             return ListView.builder(
                 itemCount: contacts.length,
                 itemBuilder: (context, position) {
-                  return item(contacts[position]);
+                  return item(contacts[position], context);
                 });
           }
           return Center(child: CircularProgressIndicator());
@@ -41,12 +42,37 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget item(Contact contact) {
+  Widget item(Contact contact, BuildContext context) {
     return Card(
-      child: ListTile(
-        title: Text(contact.name),
-        subtitle: Text(contact.job),
-        leading: Text(contact.age),
+      child: Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        actions: [
+          IconSlideAction(
+            icon: Icons.edit,
+            color: Colors.blue,
+            onTap: () async {
+              var result = await Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => EditScreen(contact)));
+              if (result != null && result == 'success') {
+                BlocProvider.of<GetcontactCubit>(context).getContact();
+              }
+            },
+          )
+        ],
+        secondaryActions: [
+          IconSlideAction(
+            icon: Icons.delete,
+            color: Colors.red,
+            onTap: () {
+              context.read<GetcontactCubit>().delete(contact.id);
+            },
+          )
+        ],
+        child: ListTile(
+          title: Text(contact.name),
+          subtitle: Text(contact.job),
+          trailing: Text('age ${contact.age}'),
+        ),
       ),
     );
   }

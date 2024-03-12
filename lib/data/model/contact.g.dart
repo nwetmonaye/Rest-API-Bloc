@@ -14,6 +14,7 @@ Contact _$ContactFromJson(Map<String, dynamic> json) => Contact(
     );
 
 Map<String, dynamic> _$ContactToJson(Contact instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'job': instance.job,
       'age': instance.age,
