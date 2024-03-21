@@ -61,8 +61,8 @@ class _ContactFormState extends State<ContactForm> {
   final _formKey = GlobalKey<FormState>();
 
   String _name = "";
-  String _job = "";
-  String _age = "";
+  String _phoneno = "";
+  String _img = "";
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -90,39 +90,39 @@ class _ContactFormState extends State<ContactForm> {
             height: 10,
           ),
           TextFormField(
-            initialValue: _contact.age,
+            initialValue: _contact.phoneno,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Enter Age',
+              hintText: 'Enter Phone No',
             ),
             validator: (value) {
               if (value?.isEmpty ?? true) {
-                return 'Please Enter Age';
+                return 'Please Enter Phone No';
               }
               return null;
             },
             onSaved: (value) {
-              this._age = value!;
+              this._phoneno = value!;
             },
           ),
           SizedBox(
             height: 10,
           ),
           TextFormField(
-            initialValue: _contact.job,
+            initialValue: _contact.img,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Enter Job',
+              hintText: 'Enter Profile Picture',
             ),
             validator: (value) {
               if (value?.isEmpty ?? true) {
-                return 'Please Enter Job';
+                return 'Please Enter Profile Picture';
               }
               return null;
             },
             onSaved: (value) {
-              this._job = value!;
+              this._img = value!;
             },
           ),
           SizedBox(
@@ -132,7 +132,7 @@ class _ContactFormState extends State<ContactForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  Contact contact = Contact(_contact.id, _name, _job, _age);
+                  Contact contact = Contact(_contact.id, _name, _phoneno, _img);
                   context.read<EditContactCubit>().edit(_contact.id, contact);
                 }
               },

@@ -13,7 +13,7 @@ class _ApiService implements ApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://65ed929508706c584d9a1584.mockapi.io/api/';
+    baseUrl ??= 'https://65fb2ae514650eb210098cd0.mockapi.io/api/';
   }
 
   final Dio _dio;

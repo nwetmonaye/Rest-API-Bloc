@@ -55,8 +55,8 @@ class ContactForm extends StatefulWidget {
 class _ContactFormState extends State<ContactForm> {
   final _formKey = GlobalKey<FormState>();
   String _name = "";
-  String _job = "";
-  String _age = "";
+  String _phoneno = "";
+  String _img = "";
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -86,16 +86,16 @@ class _ContactFormState extends State<ContactForm> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Enter Age',
+              hintText: 'Enter Phone No',
             ),
             validator: (value) {
               if (value?.isEmpty ?? true) {
-                return 'Please Enter Age';
+                return 'Please Enter Phone No';
               }
               return null;
             },
             onSaved: (value) {
-              this._age = value!;
+              this._phoneno = value!;
             },
           ),
           SizedBox(
@@ -104,16 +104,16 @@ class _ContactFormState extends State<ContactForm> {
           TextFormField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Enter Job',
+              hintText: 'Enter Profile Picture',
             ),
             validator: (value) {
               if (value?.isEmpty ?? true) {
-                return 'Please Enter Job';
+                return 'Please Enter Profile Picture';
               }
               return null;
             },
             onSaved: (value) {
-              this._job = value!;
+              this._img = value!;
             },
           ),
           SizedBox(
@@ -123,7 +123,7 @@ class _ContactFormState extends State<ContactForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  Contact contact = Contact("", _name, _job, _age);
+                  Contact contact = Contact("", _name, _phoneno, _img);
                   context.read<PostcontactCubit>().addContact(contact);
                 }
               },

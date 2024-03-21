@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: BlocProvider<GetcontactCubit>(
         create: (context) => getIt.call(),
         child: Home(),

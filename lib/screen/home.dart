@@ -70,8 +70,10 @@ class Home extends StatelessWidget {
         ],
         child: ListTile(
           title: Text(contact.name),
-          subtitle: Text(contact.job),
-          trailing: Text('age ${contact.age}'),
+          subtitle: Text(contact.phoneno),
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(contact.img),
+          ),
         ),
       ),
     );

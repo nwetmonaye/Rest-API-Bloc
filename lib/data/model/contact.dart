@@ -5,10 +5,10 @@ part 'contact.g.dart';
 class Contact {
   String id;
   String name;
-  String job;
-  String age;
+  String phoneno;
+  String img;
 
-  Contact(this.id, this.name, this.job, this.age);
+  Contact(this.id, this.name, this.phoneno, this.img);
 
   factory Contact.fromJson(Map<String, dynamic> json) =>
       _$ContactFromJson(json);
